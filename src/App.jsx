@@ -3,6 +3,10 @@ import { useState } from 'react';
 import './App.css'
 import Navbar from './components/Navbar';
 import Alert from './components/Alert';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import Contact from './components/Contact';
 
 function App() {
   const [count, setCount] = useState(2)
@@ -35,34 +39,24 @@ function App() {
     }
   }
 
-
   return (
     <>
-    
-      <Navbar 
-      title="hamro bazzar" 
-      toggleMode={toggleMode} 
-      text={text}
-       mode={mode}
-
-      
-
-       />
+      <BrowserRouter>
+        <Navbar 
+          title="hamro bazzar" 
+          toggleMode={toggleMode} 
+          text={text}
+          mode={mode}
+        />
         <Alert 
-        alert={alert}
-      
-      />
-    
-    <div className="card">
-        <button className="mt-4" onClick={handleCount}> click me!</button>
-       
-         
-         </div>
-      <p className="read-the-docs"> yo click:{count} times in button</p>
-      <p>What is your name is?<br></br>ans:{name}</p>
-       
-       
-     
+          alert={alert}
+          />
+            <Routes>
+          <Route path='/' element={<Home />}/>
+          <Route path='/about' element={<About />}/>
+          <Route path='/contact' element={<Contact />}/>
+          </Routes>
+       </BrowserRouter>
     </>
   )
 }
