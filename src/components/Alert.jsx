@@ -1,20 +1,18 @@
-import React from 'react'
+import React from "react";
 
-export const Alert = (props) => {
-
-   
+const Alert = (props) => {
   return (
     <div>
-        {props.alert &&(
-        <div 
-        className={`alert alert-${props.alert.type} alert-dismissible fade show`} 
-        role="alert">
-
-  <strong>{props.alert.type}</strong>: {props.alert.message}
-  
-  </div>
-        )}
+      {props.alert && (
+        <div
+          className={`alert alert-${props.alert.type} alert-dismissible fade show`}
+          role="alert"
+        >
+          <strong>{props.alert.type}:</strong> {props.alert.message}
+        </div>
+      )}
     </div>
-  )
-}
-export default Alert
+  );
+};
+
+export default Alert;

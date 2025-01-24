@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import s1 from "../assets/form (1) copy.jpg";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import s1 from "../assets/form (1) copy.jpg";
 
 const Signup = () => {
+  // State for storing user inputs
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -12,103 +12,112 @@ const Signup = () => {
     cpassword: "",
   });
 
+  // State for toggling password visibility
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { name, email, password } = credentials;
-
-    const response = await fetch("http://localhost:5000/api/sign-up", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-    });
-
-    const data = await response.json();
-    console.log("Form submitted", data);
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted", credentials);
   };
 
   return (
     <div className="container">
       <div className="row">
+        {/* Image Section */}
         <div className="col-md-6">
-          <div className="form-image">
-            <img src={s1} alt="Signup" />
-          </div>
+          <img src={s1} alt="Signup" className="img-fluid" />
         </div>
+
+        {/* Form Section */}
         <div className="col-md-6">
           <h4>Register to continue</h4>
           <form onSubmit={handleSubmit}>
+            {/* Full Name Field */}
             <div className="mb-3">
               <label className="form-label">Your Full Name</label>
               <input
+                type="text"
                 name="name"
                 value={credentials.name}
                 onChange={handleChange}
-                type="text"
                 className="form-control"
+                placeholder="Enter your full name"
               />
             </div>
+
+            {/* Email Field */}
             <div className="mb-3">
-              <label className="form-label">Email address</label>
+              <label className="form-label">Email Address</label>
               <input
+                type="email"
                 name="email"
                 value={credentials.email}
                 onChange={handleChange}
-                type="email"
                 className="form-control"
+                placeholder="Enter your email"
               />
             </div>
+
+            {/* Password Field */}
             <div className="mb-3">
               <label className="form-label">Password</label>
               <div className="input-group">
                 <input
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={credentials.password}
                   onChange={handleChange}
-                  type={showPassword ? "text" : "password"}
                   className="form-control"
+                  placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   className="btn btn-outline-secondary"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword((prev) => !prev)}
                 >
-                  <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
               </div>
             </div>
+
+            {/* Confirm Password Field */}
             <div className="mb-3">
               <label className="form-label">Confirm Password</label>
               <div className="input-group">
                 <input
+                  type={showCPassword ? "text" : "password"}
                   name="cpassword"
                   value={credentials.cpassword}
                   onChange={handleChange}
-                  type={showCPassword ? "text" : "password"}
                   className="form-control"
+                  placeholder="Re-enter your password"
                 />
                 <button
                   type="button"
                   className="btn btn-outline-secondary"
-                  onClick={() => setShowCPassword(!showCPassword)}
+                  onClick={() => setShowCPassword((prev) => !prev)}
                 >
-                  <FontAwesomeIcon icon={showCPassword ? faEyeSlash : faEye} />
+                  {showCPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">
+
+            {/* Submit Button */}
+            <button type="submit" className="btn btn-primary w-100">
               Submit
             </button>
           </form>
-          <p>
+
+          {/* Login Link */}
+          <p className="mt-3">
             Already registered? <Link to="/login">Login</Link>
           </p>
         </div>

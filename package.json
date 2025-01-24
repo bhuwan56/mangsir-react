@@ -1,5 +1,5 @@
 {
-  "name": "mangsir-react",
+  "name": "mangsir-project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "mangsir-project": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.1"
   },
   "devDependencies": {
